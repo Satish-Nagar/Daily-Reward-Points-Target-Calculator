@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💰 Reward Calculator 🎮</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1 class="title">💰 REWARD CALCULATOR 🎮</h1>
+        <p class="subtitle">Apne points ka target achieve karne ki exact date jaano! 🔥</p>
+    </div>
+
+    <!-- Main Form Card -->
+    <div class="container">
+        <div class="form-card">
+            <div class="form-grid">
+                
+                <!-- Daily Points -->
+                <div class="input-group">
+                    <label class="label">
+                        🎯 Daily Points
+                        <span class="tooltip-icon" data-tooltip="daily">ℹ️</span>
+                    </label>
+                    <input type="number" id="dailyPoints" class="input-field" value="65">
+                    <div class="tooltip" id="tooltip-daily">Har din milne wale points (Sunday bhi included hai!)</div>
+                </div>
+
+                <!-- Start Date -->
+                <div class="input-group">
+                    <label class="label">📅 Start Date</label>
+                    <input type="date" id="startDate" class="input-field">
+                    <p class="help-text">Normally next day se start hota hai 😎</p>
+                </div>
+
+                <!-- Starting Points -->
+                <div class="input-group">
+                    <label class="label">💎 Starting Points</label>
+                    <input type="number" id="startingPoints" class="input-field" >
+                </div>
+
+                <!-- Target Points -->
+                <div class="input-group">
+                    <label class="label">🎯 Target Points</label>
+                    <input type="number" id="targetPoints" class="input-field" value="7275">
+                </div>
+
+                <!-- Monday Bonus -->
+                <div class="input-group">
+                    <label class="label">
+                        🌟 Monday Bonus
+                        <span class="tooltip-icon" data-tooltip="monday">ℹ️</span>
+                    </label>
+                    <input type="number" id="mondayBonus" class="input-field" value="30">
+                    <div class="tooltip" id="tooltip-monday">Sirf Monday ko milta hai bhai!</div>
+                </div>
+
+                <!-- Monthly Bonus -->
+                <div class="input-group">
+                    <label class="label">📆 Monthly Bonus Points</label>
+                    <input type="number" id="monthlyBonus" class="input-field" value="700">
+                </div>
+
+                <!-- Monthly Bonus Date -->
+                <div class="input-group">
+                    <label class="label">📅 Monthly Bonus Day (1-31)</label>
+                    <input type="number" id="monthlyBonusDate" min="1" max="31" class="input-field" value="1">
+                    <p class="help-text">Har mahine is date ko bonus milega (example: 1 = har mahine 1st ko)</p>
+                </div>
+
+                <!-- Weekly Streak Day -->
+                <div class="input-group">
+                    <label class="label">🔥 Weekly Streak Day</label>
+                    <select id="weeklyStreakDay" class="input-field">
+                        <option value="0">Sunday</option>
+                        <option value="1">Monday</option>
+                        <option value="2" selected>Tuesday</option>
+                        <option value="3">Wednesday</option>
+                        <option value="4">Thursday</option>
+                        <option value="5">Friday</option>
+                        <option value="6">Saturday</option>
+                    </select>
+                </div>
+
+                <!-- Weekly Streak Points -->
+                <div class="input-group">
+                    <label class="label">⚡ Weekly Streak Points</label>
+                    <input type="number" id="weeklyStreakPoints" class="input-field" value="100">
+                </div>
+
+                <!-- Big Streak Bonus -->
+                <div class="input-group">
+                    <label class="label">
+                        💥 Big Streak Bonus
+                        <span class="tooltip-icon" data-tooltip="bigstreak">ℹ️</span>
+                    </label>
+                    <input type="number" id="bigStreakBonus" class="input-field" value="1000">
+                    <div class="tooltip" id="tooltip-bigstreak">12 weekly streaks complete hone par milega!</div>
+                </div>
+
+                <!-- Completed Streaks -->
+                <div class="input-group">
+                    <label class="label">✅ Already Completed Streaks</label>
+                    <select id="completedStreaks" class="input-field">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button id="calculateBtn" class="btn-primary">
+                    ✨ Calculate Karo! 🚀
+                </button>
+                <button id="resetBtn" class="btn-secondary">
+                    🔄 Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- Result Card -->
+        <div id="resultCard" class="result-card hidden">
+            <div id="confettiContainer"></div>
+            
+            <div class="result-content">
+                <h2 class="result-title">🎉 CONGRATULATIONS BROOOOO 🔥🔥🔥</h2>
+                
+                <div class="result-box">
+                    <p class="result-heading">🎯 Target Achieved!</p>
+                    
+                    <div class="result-details">
+                        <p class="result-item">
+                            📅 Date: <span id="finalDate" class="highlight-cyan"></span>
+                        </p>
+                        <p class="result-item">
+                            💰 Total Points: <span id="finalPoints" class="highlight-green"></span>
+                        </p>
+                        <p class="result-item">
+                            ⏱️ Days Count: <span id="daysCount" class="highlight-yellow"></span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span class="progress-label">Progress</span>
+                        <span id="progressPercent" class="progress-value">0% 🚀</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div id="progressBar" class="progress-bar">
+                            <span id="progressText" class="progress-text"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Funny Quote -->
+                <div class="quote-box">
+                    <p id="funnyQuote" class="quote-text"></p>
+                </div>
+
+                <!-- Mini Timeline -->
+                <div id="timelineSection" class="timeline-section hidden">
+                    <h3 class="timeline-title">📊 Important Milestones:</h3>
+                    <div id="timelineList" class="timeline-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Made with 💜 for all the hustlers out there! Keep grinding! 🔥</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
